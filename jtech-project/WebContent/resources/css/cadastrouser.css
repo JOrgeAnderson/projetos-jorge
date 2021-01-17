@@ -1,0 +1,82 @@
+@charset "ISO-8859-1";
+
+html,body{
+background-color: gray;
+font-size: 100%;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+
+.card{
+height: 100%;
+
+}
+
+.container{
+height: 570px;
+width: 500px;
+margin-left: auto;
+margin-right: auto;
+background-color: rgba(0,0,0,0.5) !important;
+
+}
+
+.container label{
+color: white;
+}
+
+.container h2{
+text-align: center;
+color: white;
+}
+
+.form-group{
+transform: translate(30%, 10%);
+	
+}
+
+#botao{ text-align: center }
+.botaoEnviar{
+	height: 30px;
+    width: 90px;
+    text-align: center;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background-color: #FFF;
+    font-size: 15px;
+    transition: 0.3s ease-in;
+}
+
+.botaoEnviar:hover{
+transition: 0.3s ease-in;
+color: black;
+background-color: #FFC312;
+cursor: pointer;
+}
+
+.fieldset{
+height: 550px;
+
+}
+
+.input-group input {
+margin-left: -10%;
+width: 260px;
+height: 30px;
+}
+
+.btn-warning{
+height: 30px;
+width: 90px;
+border: 1px solid #eee;
+border-radius: 6px;
+font-size: 15px;
+}
+
+.btn-warning:hover{
+transition: 0.3s ease-in;
+color: #212529;
+background-color: #ffc107; 
+cursor: pointer;
+border-color: #ffc107;
+}

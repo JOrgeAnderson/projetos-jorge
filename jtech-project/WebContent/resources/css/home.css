@@ -1,0 +1,33 @@
+@charset "ISO-8859-1";
+
+html,body{
+background-color: gray;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+
+.card{
+height: 370px;
+width: 450px;
+margin-left: auto;
+margin-right: auto;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+.card h2{
+text-align: center;
+color: white;
+}
+
+.column1 img{
+cursor: pointer;
+margin-left: 10%;
+margin-right: auto;
+transform: translate(30%, 100%);
+}
+
+.column2 img{
+transform: translate(120%, 100%);
+margin-left: auto;
+margin-right: 10%;
+}
