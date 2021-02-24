@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+ 	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Home</title>
+</h:head>
+
+<h:body>
+    
+	  <div class="card">
+    <h:form>
+        <p:focus context="panel"/>
+
+        <p:messages/>
+
+        <h:panelGrid id="panel" columns="3" cellpadding="7" style="margin-right:auto; margin-left:auto; margin-top: 170px; background-color:grey;">
+            <p:outputLabel for="login" value="Login:"/>
+            <h:inputText id="login" value="#{loginBean.login.usuario}" pt:placeholder = "Informe o login">
+                <f:validateLength/>
+            </h:inputText>
+            <p:message for="login"/>
+
+            <p:outputLabel for="senha" value="Senha:"/>
+            <h:inputSecret id="senha" value="#{loginBean.login.senha}" pt:placeholder = "Informe a senha"/>
+            <p:message for="senha"/>
+            <br/>
+            <br/>
+        <h:commandButton value="Entrar" action="#{loginBean.logar}"/>
+        </h:panelGrid>
+
+    </h:form>
+</div>
+
+
+
+</h:body>    
+</html>

@@ -18,7 +18,7 @@ public class DaoLogin<E> extends DaoGeneric<Login> implements Serializable{
 	
 	private DaoGeneric<Login> daoGeneric = new DaoGeneric<Login>();
 	
-public Login buscaUsuario(String login, String senha) {
+public Long buscaUsuario(String login, String senha) {
 		
 		try {
 			senha = cripografar(senha, "MD5");
@@ -26,17 +26,20 @@ public Login buscaUsuario(String login, String senha) {
 			e.printStackTrace();
 		}
 		
-		Login usuario = null;
+		Long usuario = null;
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
-        	usuario = (Login) entityManager
-                    .createQuery("select l from Login l where l.usuario = '"+login+"' and l.senha = '"+senha+"'")
+        	usuario = (Long) entityManager
+                    .createQuery("select count(l) from Login l where l.usuario = '"+login+"' and l.senha = '"+senha+"'")
                     .getSingleResult();
 
         	transaction.commit();
         	
+        	
+        	
             return usuario;
-        }
+        	
+        	}
 	
 	public static String cripografar(String input, String tipoAlgoritmo) throws NoSuchAlgorithmException {
 	    MessageDigest mDigest = MessageDigest.getInstance(tipoAlgoritmo);

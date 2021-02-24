@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+    <h:body>
+    	<h:form>
+		<p:linkButton value="Pessoas" href="pessoa.jsf"/>
+		<p:linkButton value="Departamentos" style="margin-left: 15px;" href="departamento.jsf"/>
+		<p:linkButton value="Cargo" style="margin-left: 15px;" href="cargo.jsf"/>
+		<p:commandButton value="Sair" action="#{loginBean.deslogar}" ajax="false" style="margin-left: 760px;"/>
+		<br/>
+		<br/>
+		<p:dataTable border="1">
+			<f:facet name="header">Log</f:facet>
+			
+			<p:column>
+				<f:facet name="header">Usuario</f:facet>
+				<h:outputText value=""/>
+			</p:column>
+				
+			<p:column>
+				<f:facet name="header">Data de Alteração</f:facet>
+				<h:outputText value=""/>
+			</p:column>
+			
+			<p:column>
+				<f:facet name="header">Entidade Alterada</f:facet>
+				<h:outputText value=""/>
+			</p:column>
+			
+			<p:column>
+				<f:facet name="header">Ações</f:facet>
+				<h:outputText value=""/>
+			</p:column>
+		
+		</p:dataTable>
+		</h:form>
+    </h:body>
+
+</html>

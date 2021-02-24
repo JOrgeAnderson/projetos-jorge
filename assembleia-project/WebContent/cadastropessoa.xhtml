@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+
+</h:head>
+    <h:body>
+    	
+		
+		<p:linkButton value="voltar" style="margin-left: 20px;" href="logado.jsf"/>
+		<br/>
+		<br/>
+		<h:form>
+		 <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+
+		<p:panelGrid columns="2">
+			<f:facet name="header">Cadastro de Pessoas</f:facet>
+			
+			<p:outputLabel value="Código:" style="display:none;"/>
+			<p:inputText value="#{pessoaBean.pessoa.id}" readonly="true" style="display:none;"/>
+			
+			<p:outputLabel value="Nome:"/>
+			<p:inputText value="#{pessoaBean.pessoa.nome}" maxlength="20"/>
+			
+			<p:outputLabel value="CPF:"/>
+			<p:inputText pt:placeholder="Somente números" value="#{pessoaBean.pessoa.cpf}" maxlength="11"/>			
+			
+			<p:outputLabel value="Rg:"/>
+			<p:inputText value="#{pessoaBean.pessoa.rg}" maxlength="7"/>
+			
+			<p:outputLabel value="E-mail:"/>
+			<p:inputText value="#{pessoaBean.pessoa.email}"/>
+			
+		
+		
+		</p:panelGrid>>
+		<p:commandButton value="Salvar" action="#{pessoaBean.salvar}" ajax="false" />
+		
+		</h:form>
+    </h:body>
+
+
+</html>
