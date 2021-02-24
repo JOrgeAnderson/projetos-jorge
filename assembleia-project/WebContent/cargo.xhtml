@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+    <h:body>
+    	
+		<p:linkButton value="Cadastrar cargos" href="cadastrocargo.jsf"/>
+		<p:linkButton value="voltar" style="margin-left: 20px;" href="logado.jsf"/>
+		<br/>
+		<br/>
+		<p:dataTable border="1" value="#{cargoBean.cargos}" var="cargo">
+			<f:facet name="header">Lista de cargos</f:facet>
+			
+			<p:column>
+				<f:facet name="header">Nome</f:facet>
+				<p:outputLabel value="#{cargo.nome}"/>
+			</p:column>
+				
+			<p:column>
+				<f:facet name="header">Qtd. Vagas</f:facet>
+				<p:outputLabel value="#{cargo.vagas}"/>
+			</p:column>
+			
+		
+		
+		</p:dataTable>
+
+    </h:body>
+</html>

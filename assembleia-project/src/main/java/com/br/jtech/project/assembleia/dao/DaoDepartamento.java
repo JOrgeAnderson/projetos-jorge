@@ -6,9 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import com.br.jtech.project.assembleia.entidade.Cargo;
+import com.br.jtech.project.assembleia.entidade.Departamento;
 import com.br.jtech.project.assembleia.util.ConnectionUtil;
 
-public class DaoDepartamento<E>  extends DaoGeneric<Cargo> implements Serializable{
+public class DaoDepartamento<E>  extends DaoGeneric<Departamento> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
