@@ -9,10 +9,13 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 
 import com.br.jtech.project.assembleia.dao.DaoPessoa;
+import com.br.jtech.project.assembleia.dao.DaoTelefones;
 import com.br.jtech.project.assembleia.entidade.Pessoa;
+import com.br.jtech.project.assembleia.entidade.TelefoneUser;
 import com.br.jtech.project.assembleia.util.ConnectionUtil;
 
 @ViewScoped
@@ -26,6 +29,8 @@ public class PessoaBean implements Serializable{
 	private Pessoa pessoa = new Pessoa();
 	
 	private DaoPessoa<Pessoa> daoGeneric = new DaoPessoa<Pessoa>();
+	
+	private DaoTelefones<TelefoneUser> daoTelefone = new DaoTelefones<TelefoneUser>();
 	
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 
@@ -73,17 +78,21 @@ public String salvar() throws IOException{
 		return "";
 	}
 
-//	private void mostrarMsg(String msg) {
-//		FacesContext context = FacesContext.getCurrentInstance();
-//		FacesMessage message = new FacesMessage(msg);
-//		context.addMessage(null, message);
-//
-//	}
 	
 	@PostConstruct
 	public void carregarPessoas() {
 		pessoas = daoGeneric.listar(Pessoa.class);
 
+	}
+	
+	public List<SelectItem> getCargos(){
+		
+		return daoGeneric.listaCargos();
+	}
+
+	public List<SelectItem> getDepartamentos(){
+		
+		return daoGeneric.listaDepartamentos();
 	}
 	
 	public ConnectionUtil getConnectionUtil() {
@@ -116,6 +125,14 @@ public String salvar() throws IOException{
 
 	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
+	}
+
+	public DaoTelefones<TelefoneUser> getDaoTelefone() {
+		return daoTelefone;
+	}
+
+	public void setDaoTelefone(DaoTelefones<TelefoneUser> daoTelefone) {
+		this.daoTelefone = daoTelefone;
 	}
 	
 }

@@ -5,7 +5,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
 import com.br.jtech.project.assembleia.dao.DaoDepartamento;
@@ -25,16 +28,18 @@ public class DepartamentoBean implements Serializable{
 	
 	public String salvar() throws IOException{
 		
+		if(daoGeneric.ValidarDepartamento(departamento.getNome(), departamento.getCentroDeCusto()) == 0) {
+		
 		daoGeneric.salvar(departamento);
 		departamento = new Departamento();
 //		carregarPessoas();
 //		mostrarMsg("Salvo com sucesso!");
-
-
-	
-	
-return "";
-
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "Departamento salvo com sucesso!"));
+		return "";
+		}else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "Departamento ou Centro de custo já existe!"));
+			return "";
+		}
 }
 
 public String atualizar() throws IOException {
@@ -76,7 +81,7 @@ return "";
 //context.addMessage(null, message);
 //
 //}
-
+@PostConstruct
 public void carregarDepartamento() {
 departamentos = daoGeneric.listar(Departamento.class);
 

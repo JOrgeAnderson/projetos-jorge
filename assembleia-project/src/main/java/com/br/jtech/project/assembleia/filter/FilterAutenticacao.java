@@ -3,6 +3,8 @@ package com.br.jtech.project.assembleia.filter;
 import java.io.IOException;
 import java.io.Serializable;
 
+import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -10,12 +12,15 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.br.jtech.project.assembleia.entidade.Login;
 import com.br.jtech.project.assembleia.util.ConnectionUtil;
 
+@WebFilter(urlPatterns = "/*")
+@ManagedBean
 public class FilterAutenticacao implements Serializable, Filter{
 
 	private static final long serialVersionUID = 1L;

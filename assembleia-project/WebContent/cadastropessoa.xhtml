@@ -38,7 +38,18 @@ xmlns:h="http://java.sun.com/jsf/html"
 			<p:outputLabel value="E-mail:"/>
 			<p:inputText value="#{pessoaBean.pessoa.email}"/>
 			
-		
+			<p:outputLabel value="Cargos"/>
+			<p:selectOneMenu value="#{pessoaBean.pessoa.cargo}" immediate="true" converter="cargoConverter">
+				<f:selectItem itemLabel="--[Selecione-Cargo]--" noSelectionOption="true"/>
+				<f:selectItems value="#{pessoaBean.cargos}"/>
+			</p:selectOneMenu>
+			
+			<p:outputLabel value="Departamentos"/>
+			<p:selectOneMenu value="#{pessoaBean.pessoa.departamento}" immediate="true" converter="departamentoConverter">
+				<f:selectItem itemLabel="--[Selecione-Departamento]--" noSelectionOption="true"/>
+				<f:selectItems value="#{pessoaBean.departamentos}"/>
+				
+			</p:selectOneMenu>
 		
 		</p:panelGrid>>
 		<p:commandButton value="Salvar" action="#{pessoaBean.salvar}" ajax="false" />

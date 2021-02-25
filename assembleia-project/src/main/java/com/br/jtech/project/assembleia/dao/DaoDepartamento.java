@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import com.br.jtech.project.assembleia.entidade.Cargo;
 import com.br.jtech.project.assembleia.entidade.Departamento;
 import com.br.jtech.project.assembleia.util.ConnectionUtil;
 
@@ -22,7 +21,7 @@ public class DaoDepartamento<E>  extends DaoGeneric<Departamento> implements Ser
 		transaction.begin();
         	departamento = (Long) entityManager
                     .createQuery("select count(d) from Departamento d where d.nome = '"+nome+"'"
-                    		+ "and d.centrodecusto = '"+centroDeCusto+"'").getSingleResult();
+                    		+ "or d.centroDeCusto = '"+centroDeCusto+"'").getSingleResult();
 
         	transaction.commit();
         	

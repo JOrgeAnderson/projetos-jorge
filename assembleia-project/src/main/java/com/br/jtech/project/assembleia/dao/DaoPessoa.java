@@ -1,10 +1,15 @@
 package com.br.jtech.project.assembleia.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import com.br.jtech.project.assembleia.entidade.Cargo;
+import com.br.jtech.project.assembleia.entidade.Departamento;
 import com.br.jtech.project.assembleia.entidade.Pessoa;
 import com.br.jtech.project.assembleia.util.ConnectionUtil;
 
@@ -39,5 +44,31 @@ public class DaoPessoa<E> extends DaoGeneric<Pessoa> implements Serializable{
 		return pessoas;
 		
 	}
+	
+public List<SelectItem> listaCargos() {
+		
+		List<SelectItem> selectItems = new ArrayList<SelectItem>();
+		
+		List<Cargo> cargos = entityManager.createQuery("from Cargo").getResultList();
+		
+		for (Cargo cargo : cargos) {
+			selectItems.add(new SelectItem(cargo, cargo.getNome()));
+		}
+		
+		return selectItems;
+	}
+
+	public List<SelectItem> listaDepartamentos() {
+	
+	List<SelectItem> selectItems = new ArrayList<SelectItem>();
+	
+	List<Departamento> departamentos = entityManager.createQuery("from Departamento").getResultList();
+	
+	for (Departamento departamento : departamentos) {
+		selectItems.add(new SelectItem(departamento, departamento.getNome()));
+	}
+	
+	return selectItems;
+}
 	
 }

@@ -5,7 +5,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
 import com.br.jtech.project.assembleia.dao.DaoCargo;
@@ -33,10 +36,10 @@ public String salvar() throws IOException {
 			cargo = new Cargo();
 //				carregarPessoas();
 //				mostrarMsg("Salvo com sucesso!");
-			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "Cargo salvo com sucesso!"));
 			return "";
 		} else {
-
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "Cargo já exiiste!"));
 			return "";
 
 		}
@@ -75,6 +78,7 @@ public String salvar() throws IOException {
 		return "";
 	}
 
+	@PostConstruct
 	public void carregarCargos() {
 		cargos = daoGeneric.listar(Cargo.class);
 
