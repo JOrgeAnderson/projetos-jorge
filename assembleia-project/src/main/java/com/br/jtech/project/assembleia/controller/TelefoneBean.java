@@ -34,8 +34,9 @@ public class TelefoneBean implements Serializable{
 	public String salvar() {
 		telefone.setPessoa(pessoa);
 		daoTelefones.salvar(telefone);
-		telefone = new TelefoneUser();
 		pessoa = daoPessoa.pesquisar(pessoa.getId(), Pessoa.class);
+		telefone = new TelefoneUser();
+		daoTelefones.listarTelefone(pessoa.getId());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "Salvo com sucesso!"));
 		return "";
 	}

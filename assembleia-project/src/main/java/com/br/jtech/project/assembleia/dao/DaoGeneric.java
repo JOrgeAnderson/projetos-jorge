@@ -75,7 +75,7 @@ public class DaoGeneric<E> implements Serializable{
 
 		return lista;
 	}
-
+	
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
