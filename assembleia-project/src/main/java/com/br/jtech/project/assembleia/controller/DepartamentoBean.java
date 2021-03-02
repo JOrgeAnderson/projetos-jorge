@@ -8,7 +8,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 
 import com.br.jtech.project.assembleia.dao.DaoDepartamento;
@@ -41,6 +43,13 @@ public class DepartamentoBean implements Serializable{
 			return "";
 		}
 }
+	
+public void Buscar(AjaxBehaviorEvent event) {
+	
+	daoGeneric.BuscarDepartamento(departamento.getDescricao());
+		
+	
+	}
 
 public String atualizar() throws IOException {
 

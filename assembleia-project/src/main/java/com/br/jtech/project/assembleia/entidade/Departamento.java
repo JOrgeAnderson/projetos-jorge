@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Departamento implements Serializable{
@@ -20,6 +21,8 @@ public class Departamento implements Serializable{
 	
 	private String centroDeCusto;
 	
+	@Transient
+	private String descricao;
 	
 	public Departamento() {
 	}
@@ -47,7 +50,14 @@ public class Departamento implements Serializable{
 	public void setCentroDeCusto(String centroDeCusto) {
 		this.centroDeCusto = centroDeCusto;
 	}
-	
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
 	@Override
 	public int hashCode() {

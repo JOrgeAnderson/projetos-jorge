@@ -14,9 +14,13 @@
 		<p:linkButton value="voltar" style="margin-left: 20px;" href="logado.jsf"/>
 		<br/>
 		<br/>
-		<h:form>
-		 
-		<p:dataTable border="1" value="#{departamentoBean.departamentos}" var="dep">
+		<h:form id="formularioDep">
+			<p:outputLabel value="Buscar Departamentos: "/>
+			<p:inputText id="busca" maxlength="20" value="#{departamentoBean.departamento.descricao}"/>
+			<p:commandButton value="Buscar">
+				<f:ajax listener="#{departamentoBean.Buscar}" execute="formularioDep:busca" render="busca" event="click"/>
+			</p:commandButton>
+		<p:dataTable id="tableDep" border="1" value="#{departamentoBean.departamentos}" var="dep">
 			<f:facet name="header">Lista de departamentos</f:facet>
 			
 			<p:column>

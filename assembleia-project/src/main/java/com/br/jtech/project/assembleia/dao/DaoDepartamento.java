@@ -1,6 +1,7 @@
 package com.br.jtech.project.assembleia.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -27,4 +28,16 @@ public class DaoDepartamento<E>  extends DaoGeneric<Departamento> implements Ser
         	
             return departamento;
 	}
+	
+	public List<Departamento> BuscarDepartamento(String descricao){
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		
+		List<Departamento> listaDep = entityManager.createQuery("select d from Departamento d where d.nome like '%"+descricao+"%'").getResultList();
+		
+		transaction.commit();
+		
+		return listaDep;
+	}
+	
 }
