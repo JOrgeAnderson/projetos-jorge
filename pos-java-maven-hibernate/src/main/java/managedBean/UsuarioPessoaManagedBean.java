@@ -94,6 +94,7 @@ public class UsuarioPessoaManagedBean implements Serializable{
 		
 	}
 	
+	@SuppressWarnings("resource")
 	public void pesquisaCep(AjaxBehaviorEvent event) {
 		try {
 			
