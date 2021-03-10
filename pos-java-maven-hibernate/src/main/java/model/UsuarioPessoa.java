@@ -46,8 +46,8 @@ public class UsuarioPessoa {
 	
 	private String gia;
 	
-	
-	
+	private Double salario;
+		
 	
 	public UsuarioPessoa() {
 	}
@@ -233,6 +233,14 @@ public class UsuarioPessoa {
 		this.telefoneUsers = telefoneUsers;
 	}
 
+	public Double getSalario() {
+		return salario;
+	}
+	
+	public void setSalario(Double salario) {
+		this.salario = salario;
+	}
+	
 	@Override
 	public String toString() {
 		return "UsuarioPessoa [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email
@@ -263,6 +271,7 @@ public class UsuarioPessoa {
 			return false;
 		return true;
 	}
+
 
 	
 }

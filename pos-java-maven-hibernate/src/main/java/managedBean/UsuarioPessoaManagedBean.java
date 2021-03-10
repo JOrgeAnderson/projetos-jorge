@@ -16,6 +16,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
+
 import com.google.gson.Gson;
 
 import dao.DaoTelefones;
@@ -34,12 +37,25 @@ public class UsuarioPessoaManagedBean implements Serializable{
 	private List<UsuarioPessoa> list = new ArrayList<UsuarioPessoa>();
 	private DaoUsuario<UsuarioPessoa> daoGeneric = new DaoUsuario<UsuarioPessoa>();
 	private DaoTelefones<TelefoneUser> daoTelefone = new DaoTelefones<TelefoneUser>();
-	
+	private BarChartModel barChartModel = new BarChartModel();
 	
 	@PostConstruct
 	public void init() {
 		list = daoGeneric.listar(UsuarioPessoa.class);
 		
+		ChartSeries userSalario = new ChartSeries();/*Grupo de funcionários*/
+		userSalario.setLabel("Users");
+		for (UsuarioPessoa usuarioPessoa : list) { /*add salario para o grupo*/
+			userSalario.set(usuarioPessoa.getNome(), usuarioPessoa.getSalario()); /*add salarios*/
+			
+		}
+		
+		barChartModel.addSeries(userSalario);/*adiciona o grupo no barModel*/
+		barChartModel.setTitle("Grafico de salários");
+	}
+	
+	public BarChartModel getBarChartModel() {
+		return barChartModel;
 	}
 	
 	public DaoTelefones<TelefoneUser> getDaoTelefone() {
