@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,7 +20,6 @@ public class UsuarioPessoa {
 
 	private String nome;
 	private String sobrenome;
-	private String email;
 	private String login;
 	private String senha;
 	private String sexo;
@@ -27,6 +27,9 @@ public class UsuarioPessoa {
 	
 	@OneToMany(mappedBy = "usuarioPessoa", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<TelefoneUser> telefoneUsers;
+	
+	@OneToMany(mappedBy = "usuarioPessoa", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<EmailUser> emailUsers = new ArrayList<EmailUser>();
 	
 	private String cep;
 	
@@ -200,14 +203,6 @@ public class UsuarioPessoa {
 		this.sobrenome = sobrenome;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getLogin() {
 		return login;
 	}
@@ -233,6 +228,14 @@ public class UsuarioPessoa {
 		this.telefoneUsers = telefoneUsers;
 	}
 
+	public List<EmailUser> getEmails() {
+		return emailUsers;
+	}
+
+	public void setEmailUsers(List<EmailUser> emailUsers) {
+		this.emailUsers = emailUsers;
+	}
+
 	public Double getSalario() {
 		return salario;
 	}
@@ -243,7 +246,7 @@ public class UsuarioPessoa {
 	
 	@Override
 	public String toString() {
-		return "UsuarioPessoa [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email
+		return "UsuarioPessoa [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome
 				+ ", login=" + login + ", senha=" + senha + ", idade=" + idade + "]";
 	}
 

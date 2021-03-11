@@ -37,10 +37,6 @@
 			<h:outputLabel>Salario:</h:outputLabel>
 			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.salario}" pt:placeholder="Informe a salario"/>
 			
-			
-			<h:outputLabel>Email:</h:outputLabel>
-			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.email}" pt:placeholder="exemplo@email.com"/>
-			
 			<h:outputLabel>Sexo</h:outputLabel>
 			<h:selectOneMenu value="#{usuarioPessoaManagedBean.usuarioPessoa.sexo}">
 				<f:selectItem itemValue="MASCULINO"/>
@@ -106,11 +102,6 @@
 			<h:column>
 				<f:facet name="header">Sobrenome</f:facet>
 				<h:outputText value="#{user.sobrenome}"/>
-			</h:column>
-			
-			<h:column>
-			<f:facet name="header">Email</f:facet>
-				<h:outputText value="#{user.email}"/>
 			</h:column>
 			
 			<h:column>
