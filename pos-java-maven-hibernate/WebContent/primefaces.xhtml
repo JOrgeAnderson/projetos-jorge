@@ -59,6 +59,12 @@
 					<p:watermark value="informe a senha" for="senha"></p:watermark>
 			</p:password>
 			
+			<p:outputLabel>Foto:</p:outputLabel>
+			<p:fileUpload mode="advanced" label="Adicionar" auto="true" update="imagem"
+			fileUploadListener="#{usuarioPessoaManagedBean.upload}"/>
+			
+			<p:outputLabel>Imagem:</p:outputLabel>
+			<h:graphicImage id="imagem" value="#{usuarioPessoaManagedBean.usuarioPessoa.imagem}" width="220" height="200"/>
 		</h:panelGrid>
 		<br/>
 		<br/>
@@ -96,6 +102,16 @@
 		<p:column headerText="Nome" style="width:600px;">
 			<h:outputText value="#{user.nome}"/>
 		
+		</p:column>
+		
+		<p:column headerText="Download">
+			<center>
+			<h:commandLink immediate="true"
+				actionListener="#{usuarioPessoaManagedBean.download}">
+				<f:param name="fileDownloadId" value="#{user.id}"/>
+				<h:graphicImage url="resources/img/download.jpg" width="25" height="25"/>
+			</h:commandLink>
+			</center>
 		</p:column>
 		
 		<p:column headerText="Editar">
