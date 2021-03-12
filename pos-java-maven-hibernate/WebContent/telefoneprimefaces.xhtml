@@ -18,7 +18,9 @@
 	</h:form>
 	
 	<h:form id="formulario">
-		<p:growl id="growl" showDetail="true" />
+		<p:growl id="growl" showDetail="true">
+			<p:autoUpdate/>
+		</p:growl>
 		
 		<h:panelGrid columns="2">
 		
@@ -26,10 +28,15 @@
 		<p:outputLabel value="#{telefoneManegedBean.user.nome}"/>
 		
 		<p:outputLabel>Número: </p:outputLabel>
-		<p:inputText value="#{telefoneManegedBean.telefone.numero}" required="true" requiredMessage="Número Obrigatório!"/>
+		<p:inputMask value="#{telefoneManegedBean.telefone.numero}" required="true" requiredMessage="Número Obrigatório!" mask="(99) 9 9999-9999"/>
 		
 		<p:outputLabel>Tipo: </p:outputLabel>
-		<p:inputText value="#{telefoneManegedBean.telefone.tipo}" required="true" requiredMessage="Tipo Obrigatório!"/>
+		<p:selectOneMenu value="#{telefoneManegedBean.telefone.tipo}" required="true" requiredMessage="Tipo Obrigatório!">
+			<f:selectItem itemValue="CELULAR" itemLabel="Celular"/>
+			<f:selectItem itemValue="TELEFONE" itemLabel="Telefone"/>
+			<f:selectItem itemValue="TRABALHO" itemLabel="Trabalho"/>
+		
+		</p:selectOneMenu>
 		
 		</h:panelGrid>		
 		<br/>
@@ -45,7 +52,7 @@
 			<p:dataTable value="#{telefoneManegedBean.user.telefoneUsers}" var="fone" id="tableFone">
 				<f:facet name="header">Lista de Telefones</f:facet>
 
-			<p:column>
+			<p:column width="20">
 				<f:facet name="header">Id</f:facet>
 				<h:outputText value="#{fone.id}" />
 			</p:column>
@@ -55,12 +62,12 @@
 				<h:outputText value="#{fone.numero}"/>
 			</p:column>
 			
-			<p:column>
+			<p:column width="250">
 				<f:facet name="header">Tipo</f:facet>
 				<h:outputText value="#{fone.tipo}"/>
 			</p:column>
 
-			<p:column>
+			<p:column width="50">
 
 				<f:facet name="header">Delete</f:facet>
 				<h:commandLink immediate="true" title="Remover"

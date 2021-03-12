@@ -21,8 +21,10 @@ import org.primefaces.model.chart.ChartSeries;
 
 import com.google.gson.Gson;
 
+import dao.DaoEmail;
 import dao.DaoTelefones;
 import dao.DaoUsuario;
+import model.EmailUser;
 import model.TelefoneUser;
 import model.UsuarioPessoa;
 
@@ -38,13 +40,29 @@ public class UsuarioPessoaManagedBean implements Serializable{
 	private DaoUsuario<UsuarioPessoa> daoGeneric = new DaoUsuario<UsuarioPessoa>();
 	private DaoTelefones<TelefoneUser> daoTelefone = new DaoTelefones<TelefoneUser>();
 	private BarChartModel barChartModel = new BarChartModel();
+	private EmailUser emailUser = new EmailUser();
+	private DaoEmail<EmailUser> daoEmail = new DaoEmail<EmailUser>();
+	private String campoPesquisa;
 	
+	public EmailUser getEmailUser() {
+		return emailUser;
+	}
+
+	public void setEmailUser(EmailUser emailUser) {
+		this.emailUser = emailUser;
+	}
+
 	@PostConstruct
 	public void init() {
 		list = daoGeneric.listar(UsuarioPessoa.class);
+
+		montarGrafico();
+	}
+
+	private void montarGrafico() {
+		barChartModel = new BarChartModel();
 		
 		ChartSeries userSalario = new ChartSeries();/*Grupo de funcionários*/
-		userSalario.setLabel("Users");
 		for (UsuarioPessoa usuarioPessoa : list) { /*add salario para o grupo*/
 			userSalario.set(usuarioPessoa.getNome(), usuarioPessoa.getSalario()); /*add salarios*/
 			
@@ -80,6 +98,8 @@ public class UsuarioPessoaManagedBean implements Serializable{
 	public String salvar() {
 		daoGeneric.salvar(usuarioPessoa);
 		list.add(usuarioPessoa);
+		usuarioPessoa = new UsuarioPessoa();
+		init();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "Salvo com sucesso!"));
 		return "";
 	}
@@ -90,21 +110,13 @@ public class UsuarioPessoaManagedBean implements Serializable{
 		return "";
 	}
 	
-	public String remover() {
+	public String remover() throws Exception {
 		
-		try {
 		daoGeneric.removerUsuario(usuarioPessoa);
 		list.remove(usuarioPessoa);
 		usuarioPessoa = new UsuarioPessoa();
+		init();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "Removido com sucesso!"));
-		
-		}catch (Exception e) {
-			if(e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "Existem telefones para o usuário: "+usuarioPessoa.getNome()));
-			}else {
-				e.printStackTrace();
-			}
-		}
 		
 		return "";
 		
@@ -144,5 +156,36 @@ public class UsuarioPessoaManagedBean implements Serializable{
 		}
 		
 	}
+	
+	public void addEmail() {
+		emailUser.setUsuarioPessoa(usuarioPessoa);
+		emailUser = daoEmail.updateMerge(emailUser);
+		usuarioPessoa.getEmails().add(emailUser);
+		emailUser = new EmailUser();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "E-mail salvo com sucesso!"));
+	}
+	
+	public void removerEmail() throws Exception {
+		String codigoemail = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("codigoemail");
+		EmailUser remover = new EmailUser();
+		remover.setId(Long.parseLong(codigoemail));
+		daoEmail.deletarPoId(remover);
+		usuarioPessoa.getEmails().remove(remover);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "E-mail removido com sucesso!"));
+	}
+
+	public void pesquisar() {
+		list = daoGeneric.pesquisar(campoPesquisa);
+		montarGrafico();
+	}
+	
+	public String getCampoPesquisa() {
+		return campoPesquisa;
+	}
+
+	public void setCampoPesquisa(String campoPesquisa) {
+		this.campoPesquisa = campoPesquisa;
+	}
+	
 	
 }
