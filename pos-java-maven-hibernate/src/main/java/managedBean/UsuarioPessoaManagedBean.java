@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -30,6 +28,7 @@ import com.google.gson.Gson;
 import dao.DaoEmail;
 import dao.DaoTelefones;
 import dao.DaoUsuario;
+import datatablelaza.LazyDataTableModelUserPessoa;
 import model.EmailUser;
 import model.TelefoneUser;
 import model.UsuarioPessoa;
@@ -42,7 +41,7 @@ public class UsuarioPessoaManagedBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private UsuarioPessoa usuarioPessoa = new UsuarioPessoa();
-	private List<UsuarioPessoa> list = new ArrayList<UsuarioPessoa>();
+	private LazyDataTableModelUserPessoa<UsuarioPessoa> list = new LazyDataTableModelUserPessoa<UsuarioPessoa>();
 	private DaoUsuario<UsuarioPessoa> daoGeneric = new DaoUsuario<UsuarioPessoa>();
 	private DaoTelefones<TelefoneUser> daoTelefone = new DaoTelefones<TelefoneUser>();
 	private BarChartModel barChartModel = new BarChartModel();
@@ -60,8 +59,7 @@ public class UsuarioPessoaManagedBean implements Serializable{
 
 	@PostConstruct
 	public void init() {
-		list = daoGeneric.listar(UsuarioPessoa.class);
-
+		list.load(0, 5, null, null, null);
 		montarGrafico();
 	}
 
@@ -69,7 +67,7 @@ public class UsuarioPessoaManagedBean implements Serializable{
 		barChartModel = new BarChartModel();
 		
 		ChartSeries userSalario = new ChartSeries();/*Grupo de funcionários*/
-		for (UsuarioPessoa usuarioPessoa : list) { /*add salario para o grupo*/
+		for (UsuarioPessoa usuarioPessoa : list.list) { /*add salario para o grupo*/
 			userSalario.set(usuarioPessoa.getNome(), usuarioPessoa.getSalario()); /*add salarios*/
 			
 		}
@@ -97,13 +95,13 @@ public class UsuarioPessoaManagedBean implements Serializable{
 		this.usuarioPessoa = usuarioPessoa;
 	}
 	
-	public List<UsuarioPessoa> getList() {
-		
+	public LazyDataTableModelUserPessoa<UsuarioPessoa> getList() {
+		montarGrafico();
 		return list;
 	}
 	public String salvar() {
 		daoGeneric.salvar(usuarioPessoa);
-		list.add(usuarioPessoa);
+		list.list.add(usuarioPessoa);
 		usuarioPessoa = new UsuarioPessoa();
 		init();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "Salvo com sucesso!"));
@@ -119,7 +117,7 @@ public class UsuarioPessoaManagedBean implements Serializable{
 	public String remover() throws Exception {
 		
 		daoGeneric.removerUsuario(usuarioPessoa);
-		list.remove(usuarioPessoa);
+		list.list.remove(usuarioPessoa);
 		usuarioPessoa = new UsuarioPessoa();
 		init();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "Removido com sucesso!"));
@@ -181,7 +179,7 @@ public class UsuarioPessoaManagedBean implements Serializable{
 	}
 
 	public void pesquisar() {
-		list = daoGeneric.pesquisar(campoPesquisa);
+		list.pesquisa(campoPesquisa);
 		montarGrafico();
 	}
 	
