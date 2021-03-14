@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import com.br.jtech.project.assembleia.entidade.Departamento;
 import com.br.jtech.project.assembleia.util.ConnectionUtil;
@@ -14,6 +15,7 @@ public class DaoDepartamento<E>  extends DaoGeneric<Departamento> implements Ser
 	private static final long serialVersionUID = 1L;
 
 	private EntityManager entityManager = ConnectionUtil.getEntityManager();
+	
 	
 	public Long ValidarDepartamento(String nome, String centroDeCusto) {
 		
@@ -28,16 +30,13 @@ public class DaoDepartamento<E>  extends DaoGeneric<Departamento> implements Ser
         	
             return departamento;
 	}
-	
-	public List<Departamento> BuscarDepartamento(String descricao){
-		EntityTransaction transaction = entityManager.getTransaction();
-		transaction.begin();
+
+	public List<Departamento> pesquisar(String campopesquisa) {
 		
-		List<Departamento> listaDep = entityManager.createQuery("select d from Departamento d where d.nome like '%"+descricao+"%'").getResultList();
+		Query query = super.getEntityManager().createQuery("from Departamento where nome like '%"+campopesquisa+"%'");
 		
-		transaction.commit();
-		
-		return listaDep;
+		return query.getResultList();
 	}
+	
 	
 }

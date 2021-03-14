@@ -14,27 +14,32 @@
 		<p:linkButton value="voltar" style="margin-left: 20px;" href="logado.jsf"/>
 		<br/>
 		<br/>
+		<h:form>
+			<p:panel header="Consultar Departamentos">
+				<h:panelGrid columns="3">
+					<p:outputLabel value="Buscar"/>
+					<p:inputText value="#{departamentoBean.campopesquisa}"/>
+					<p:commandButton value="Buscar" actionListener="#{departamentoBean.pesquisar}" update="formularioDep"/>
+						
+				</h:panelGrid>
+			
+			</p:panel>
+		
+		</h:form>
 		<h:form id="formularioDep">
-			<p:outputLabel value="Buscar Departamentos: "/>
-			<p:inputText id="busca" maxlength="20" value="#{departamentoBean.departamento.descricao}"/>
-			<p:commandButton value="Buscar">
-				<f:ajax listener="#{departamentoBean.Buscar}" execute="formularioDep:busca" render="busca" event="click"/>
-			</p:commandButton>
-		<p:dataTable id="tableDep" border="1" value="#{departamentoBean.departamentos}" var="dep">
+		<p:dataTable border="1" value="#{departamentoBean.list}" var="dep"
+		rows="5" paginator="true" lazy="true" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}">
 			<f:facet name="header">Lista de departamentos</f:facet>
 			
-			<p:column>
-				<f:facet name="header">Código</f:facet>
+			<p:column headerText="Código">
 				<h:outputText value="#{dep.id}"/>
 			</p:column>
 			
-			<p:column>
-				<f:facet name="header">Nome</f:facet>
+			<p:column headerText="Nome">
 				<h:outputText value="#{dep.nome}"/>
 			</p:column>
 				
-			<p:column>
-				<f:facet name="header">Centro de custo</f:facet>
+			<p:column headerText="Centro de custo">
 				<h:outputText value="#{dep.centroDeCusto}"/>
 			</p:column>
 			

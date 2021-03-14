@@ -28,6 +28,15 @@ public class DepartamentoBean implements Serializable{
 	
 	private List<Departamento> departamentos = new ArrayList<Departamento>();
 	
+	private String campopesquisa;
+	
+	private LazyDataTableModelDepartamento<Departamento> list = new LazyDataTableModelDepartamento<Departamento>();
+	
+	@PostConstruct
+	public void init() {
+		list.load(0, 5, null, null, null);
+	}
+	
 	public String salvar() throws IOException{
 		
 		if(daoGeneric.ValidarDepartamento(departamento.getNome(), departamento.getCentroDeCusto()) == 0) {
@@ -44,12 +53,6 @@ public class DepartamentoBean implements Serializable{
 		}
 }
 	
-public void Buscar(AjaxBehaviorEvent event) {
-	
-	daoGeneric.BuscarDepartamento(departamento.getDescricao());
-		
-	
-	}
 
 public String atualizar() throws IOException {
 
@@ -90,10 +93,10 @@ return "";
 //context.addMessage(null, message);
 //
 //}
-@PostConstruct
-public void carregarDepartamento() {
-departamentos = daoGeneric.listar(Departamento.class);
 
+
+public void pesquisar() {
+	list.pesquisa(campopesquisa);
 }
 
 public Departamento getDepartamento() {
@@ -118,6 +121,22 @@ public List<Departamento> getDepartamentos() {
 
 public void setDepartamentos(List<Departamento> departamentos) {
 	this.departamentos = departamentos;
+}
+
+public void setCampopesquisa(String campopesquisa) {
+	this.campopesquisa = campopesquisa;
+}
+
+public String getCampopesquisa() {
+	return campopesquisa;
+}
+
+public LazyDataTableModelDepartamento<Departamento> getList() {
+	return list;
+}
+
+public void setList(LazyDataTableModelDepartamento<Departamento> list) {
+	this.list = list;
 }
 
 }
