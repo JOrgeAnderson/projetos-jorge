@@ -10,6 +10,12 @@ import model.UsuarioPessoa;
 public class TesteHibernate {
 	
 	@Test
+	public void testeConnection() {
+		HibernateUtil.geEntityManager();
+		
+	}
+	
+	@Test
 	public void testeHibernateUtil(){
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 		
